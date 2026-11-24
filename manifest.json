@@ -1,0 +1,16 @@
+{
+  "name": "FDxwLNX - المنصة الذكية المتكاملة",
+  "short_name": "FDxwLNX",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#050a18",
+  "theme_color": "#0a192f",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "https://flaticon.com",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
