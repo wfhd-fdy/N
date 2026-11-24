@@ -1,0 +1,161 @@
+:root {
+    --bg-primary: #050a1f;
+    --bg-secondary: #0b173d;
+    --accent-color: #00d2ff;
+    --accent-glow: rgba(0, 210, 255, 0.4);
+    --text-main: #ffffff;
+    --card-bg: rgba(255, 255, 255, 0.08);
+}
+
+/* ثيم اللون الأحمر */
+body.theme-red {
+    --bg-primary: #1f0508;
+    --bg-secondary: #3d0b14;
+    --accent-color: #ff2a55;
+    --accent-glow: rgba(255, 42, 85, 0.4);
+}
+
+/* ثيم شعار الصقر (ذهبي ورمادي وأسود خفيف) */
+body.theme-falcon {
+    --bg-primary: #141414;
+    --bg-secondary: #262626;
+    --accent-color: #d4af37;
+    --accent-glow: rgba(212, 175, 55, 0.4);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, sans-serif; }
+
+body {
+    background: linear-gradient(135deg, var(--bg-primary), var(--bg-secondary));
+    color: var(--text-main);
+    min-height: 100vh;
+    overflow-x: hidden;
+    transition: background 0.5s ease;
+}
+
+/* خلفية النجوم والغيوم RGB المتحركة */
+.sky-bg {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; overflow: hidden;
+}
+.stars {
+    width: 100%; height: 100%;
+    background-image: radial-gradient(2px 2px at 20px 30px, #fff, transparent),
+                      radial-gradient(2px 2px at 80px 120px, #fff, transparent),
+                      radial-gradient(1.5px 1.5px at 150px 70px, var(--accent-color), transparent);
+    background-size: 200px 200px;
+    animation: twinkle 6s infinite alternate;
+}
+.rgb-clouds {
+    position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+    background: radial-gradient(circle, var(--accent-glow) 0%, transparent 50%);
+    animation: drift 20s linear infinite;
+}
+@keyframes twinkle { 0% { opacity: 0.4; } 100% { opacity: 1; } }
+@keyframes drift { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+/* جناح الصقر أثناء التحريك */
+.falcon-wing {
+    position: fixed; top: 50%; left: 20px; font-size: 120px;
+    opacity: 0.18; pointer-events: none; z-index: -1; transition: opacity 0.3s;
+}
+
+/* الشريط العلوي */
+.top-bar {
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;
+    padding: 15px 25px; background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255,255,255,0.1); gap: 10px;
+}
+.brand-logo { font-size: 22px; font-weight: bold; color: var(--accent-color); text-shadow: 0 0 10px var(--accent-glow); }
+.shield-badge { font-size: 12px; background: rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 12px; margin-right: 8px; }
+.nav-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.nav-btn, .auth-btn {
+    background: var(--card-bg); color: #fff; border: 1px solid rgba(255,255,255,0.2);
+    padding: 8px 14px; border-radius: 10px; cursor: pointer; transition: 0.2s;
+}
+.auth-btn { background: var(--accent-color); color: #000; font-weight: bold; border: none; }
+.nav-btn:hover { background: rgba(255,255,255,0.2); }
+
+/* الحاوية والبحث المركزي */
+.container { max-width: 1100px; margin: auto; padding: 30px 20px; }
+.search-section { text-align: center; margin: 30px 0 50px; }
+.fd-wc-title { font-size: 48px; letter-spacing: 2px; color: var(--accent-color); margin-bottom: 20px; text-shadow: 0 0 20px var(--accent-glow); }
+.search-box-wrapper {
+    display: flex; max-width: 700px; margin: auto; background: rgba(255,255,255,0.12);
+    border-radius: 30px; padding: 6px; border: 1px solid var(--accent-color); box-shadow: 0 0 20px var(--accent-glow);
+}
+.engine-select {
+    background: transparent; color: #fff; border: none; padding: 10px 15px; outline: none; font-weight: bold; cursor: pointer;
+}
+.engine-select option { background: #111; color: #fff; }
+.search-box-wrapper input {
+    flex: 1; background: transparent; border: none; color: #fff; padding: 10px 15px; font-size: 16px; outline: none;
+}
+.search-submit {
+    background: var(--accent-color); color: #000; border: none; padding: 10px 25px;
+    border-radius: 25px; font-weight: bold; cursor: pointer;
+}
+.pin-btn {
+    margin-top: 15px; background: transparent; color: var(--accent-color);
+    border: 1px dashed var(--accent-color); padding: 6px 16px; border-radius: 20px; cursor: pointer;
+}
+
+/* شبكات التطبيقات والقنوات */
+.grid-section { margin-bottom: 40px; }
+.grid-section h2 { font-size: 18px; margin-bottom: 15px; border-right: 4px solid var(--accent-color); padding-right: 10px; }
+.apps-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 15px; }
+.app-card {
+    background: var(--card-bg); border-radius: 16px; padding: 15px 10px; text-align: center;
+    text-decoration: none; color: #fff; border: 1px solid rgba(255,255,255,0.08);
+    transition: transform 0.2s, box-shadow 0.2s; display: flex; flex-direction: column; align-items: center; gap: 10px;
+}
+.app-card:hover { transform: translateY(-5px); box-shadow: 0 5px 15px var(--accent-glow); border-color: var(--accent-color); }
+.app-card img { width: 42px; height: 42px; object-fit: contain; }
+.app-card span { font-size: 13px; }
+
+/* خانة الذكاء الاصطناعي تايقر */
+.ai-section {
+    background: var(--card-bg); border-radius: 20px; padding: 20px;
+    border: 1px solid rgba(255,255,255,0.15); margin-bottom: 40px;
+}
+.ai-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap; gap: 10px; }
+.privacy-tag { font-size: 12px; background: rgba(76, 209, 55, 0.2); color: #4cd137; padding: 4px 10px; border-radius: 12px; }
+.chat-window {
+    height: 200px; overflow-y: auto; background: rgba(0,0,0,0.3); border-radius: 12px;
+    padding: 15px; display: flex; flex-direction: column; gap: 10px; margin-bottom: 12px;
+}
+.msg { padding: 10px 14px; border-radius: 12px; max-width: 85%; font-size: 14px; line-height: 1.5; }
+.msg.bot { background: rgba(255,255,255,0.1); align-self: flex-start; }
+.msg.user { background: var(--accent-color); color: #000; align-self: flex-end; font-weight: 500; }
+.ai-input-box { display: flex; gap: 10px; }
+.ai-input-box input {
+    flex: 1; padding: 12px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.2);
+    background: rgba(0,0,0,0.4); color: #fff; outline: none;
+}
+.ai-input-box button {
+    background: var(--accent-color); color: #000; border: none; padding: 0 20px;
+    border-radius: 12px; font-weight: bold; cursor: pointer;
+}
+
+/* النوافذ المنبثقة */
+.modal {
+    display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.75); justify-content: center; align-items: center; z-index: 300; padding: 15px;
+}
+.modal-box {
+    background: #12182b; border: 1px solid var(--accent-color); border-radius: 20px;
+    padding: 25px; width: 100%; max-width: 420px; display: flex; flex-direction: column; gap: 12px;
+}
+.modal-box input { padding: 12px; border-radius: 10px; border: 1px solid #333; background: #0a0e1a; color: #fff; }
+.primary-btn { background: var(--accent-color); color: #000; border: none; padding: 12px; border-radius: 10px; font-weight: bold; cursor: pointer; }
+.danger-btn { background: #e84118; color: #fff; border: none; padding: 12px; border-radius: 10px; font-weight: bold; cursor: pointer; }
+.close-btn { background: #333; color: #fff; border: none; padding: 10px; border-radius: 10px; cursor: pointer; }
+.link-btn { background: none; border: none; color: var(--accent-color); text-decoration: underline; cursor: pointer; font-size: 13px; }
+.oauth-buttons, .theme-buttons { display: flex; flex-direction: column; gap: 8px; }
+.oauth-buttons button, .theme-buttons button {
+    padding: 10px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.08); color: #fff; cursor: pointer;
+}
+
+/* التذييل */
+.legal-footer { text-align: center; font-size: 12px; color: #aaa; margin-top: 40px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
+.privacy-note { color: var(--accent-color); margin-top: 5px; }
