@@ -3,194 +3,144 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>FDxwLNX | المنصة الذكية المتكاملة</title>
-    
-    <!-- إعدادات التوافق مع Apple iOS والتثبيت كتطبيق -->
+    <!-- إعدادات متوافقة مع Apple Web App -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="FDxwLNX">
-    <link rel="apple-touch-icon" href="https://flaticon.com">
-    <link rel="manifest" href="manifest.json">
-
-    <style>
-        :root {
-            --bg-primary: #04091a;
-            --bg-secondary: rgba(13, 25, 54, 0.75);
-            --accent-color: #00a8ff;
-            --accent-glow: rgba(0, 168, 255, 0.5);
-            --text-color: #ffffff;
-            --border-rgb: linear-gradient(45deg, #00a8ff, #0051ff, #00f2fe, #00a8ff);
-        }
-
-        /* سمة اللون الأحمر RGB */
-        body.theme-red {
-            --bg-primary: #140408;
-            --bg-secondary: rgba(45, 10, 18, 0.78);
-            --accent-color: #ff2a55;
-            --accent-glow: rgba(255, 42, 85, 0.5);
-            --border-rgb: linear-gradient(45deg, #ff2a55, #ff002b, #ff6b6b, #ff2a55);
-        }
-
-        /* سمة الصقر السعودي (ذهبي، رمادي، وأسود خفيف) */
-        body.theme-falcon {
-            --bg-primary: #121214;
-            --bg-secondary: rgba(34, 35, 38, 0.85);
-            --accent-color: #d4af37;
-            --accent-glow: rgba(212, 175, 55, 0.45);
-            --border-rgb: linear-gradient(45deg, #d4af37, #7f8c8d, #f1c40f, #555555);
-        }
-
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, sans-serif; }
-        
-        body {
-            background-color: var(--bg-primary);
-            color: var(--text-color);
-            min-height: 100vh;
-            overflow-x: hidden;
-            transition: background 0.5s ease;
-            position: relative;
-        }
-
-        /* خلفية النجوم والغيوم المتحركة */
-        .sky-bg {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2;
-            background: radial-gradient(ellipse at bottom, #0d1d31 0%, var(--bg-primary) 100%);
-            overflow: hidden;
-        }
-        .stars {
-            width: 200%; height: 200%;
-            background-image: radial-gradient(2px 2px at 20px 30px, #fff, rgba(0,0,0,0)),
-                              radial-gradient(2px 2px at 40px 70px, var(--accent-color), rgba(0,0,0,0)),
-                              radial-gradient(1.5px 1.5px at 90px 40px, #fff, rgba(0,0,0,0));
-            background-size: 200px 200px;
-            animation: moveStars 60s linear infinite;
-            opacity: 0.7;
-        }
-        .clouds {
-            position: absolute; top: 0; left: 0; width: 200%; height: 100%;
-            background: radial-gradient(circle at 50% 50%, var(--accent-glow), transparent 60%);
-            filter: blur(60px); opacity: 0.25;
-            animation: moveClouds 25s ease-in-out infinite alternate;
-        }
-        @keyframes moveStars { from { transform: translateY(0); } to { transform: translateY(-500px); } }
-        @keyframes moveClouds { from { transform: translateX(-10%); } to { transform: translateX(10%); } }
-
-        /* علامة جناح الصقر أثناء التحريك */
-        .falcon-wing-indicator {
-            position: fixed; top: 50%; left: 10px; transform: translateY(-50%);
-            pointer-events: none; z-index: 90; opacity: 0.18; transition: transform 0.3s ease, opacity 0.3s;
-        }
-        .falcon-wing-indicator svg { width: 90px; height: 90px; fill: var(--accent-color); }
-
-        /* الشريط العلوي */
-        header {
-            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;
-            padding: 15px 25px; background: var(--bg-secondary); backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(255,255,255,0.1); position: sticky; top: 0; z-index: 100;
-        }
-        .brand { display: flex; align-items: center; gap: 10px; }
-        .brand h1 { font-size: 22px; letter-spacing: 1px; color: var(--accent-color); text-shadow: 0 0 10px var(--accent-glow); }
-        .nav-actions { display: flex; gap: 8px; flex-wrap: wrap; }
-        
-        .btn {
-            background: rgba(255,255,255,0.08); color: #fff; border: 1px solid var(--accent-color);
-            padding: 8px 14px; border-radius: 10px; cursor: pointer; font-size: 13px; font-weight: bold;
-            transition: 0.3s; display: flex; align-items: center; gap: 6px;
-        }
-        .btn:hover { background: var(--accent-color); color: #000; box-shadow: 0 0 15px var(--accent-glow); }
-
-        /* قسم البحث المركزي */
-        .hero-search {
-            max-width: 750px; margin: 50px auto 30px; padding: 0 20px; text-align: center;
-        }
-        .fd-wc-badge {
-            display: inline-block; font-size: 28px; font-weight: 900; letter-spacing: 2px;
-            color: var(--accent-color); margin-bottom: 15px; text-shadow: 0 0 15px var(--accent-glow);
-        }
-        .search-box-rgb {
-            position: relative; padding: 3px; border-radius: 30px;
-            background: var(--border-rgb); background-size: 300% 300%;
-            animation: rgbBorder 4s ease infinite; box-shadow: 0 0 25px var(--accent-glow);
-        }
-        @keyframes rgbBorder { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
-        
-        .search-inner {
-            display: flex; align-items: center; background: #0a0f1d; border-radius: 28px; padding: 6px 15px;
-        }
-        .search-inner select {
-            background: transparent; color: var(--accent-color); border: none; font-weight: bold;
-            padding: 8px; outline: none; cursor: pointer; font-size: 14px;
-        }
-        .search-inner input {
-            flex: 1; background: transparent; border: none; color: #fff; padding: 10px; font-size: 16px; outline: none;
-        }
-        .search-inner button {
-            background: var(--accent-color); color: #000; border: none; padding: 10px 20px;
-            border-radius: 20px; font-weight: bold; cursor: pointer;
-        }
-
-        /* شبكات التطبيقات والقنوات */
-        .section-container { max-width: 1100px; margin: 30px auto; padding: 0 20px; }
-        .section-title {
-            font-size: 18px; color: var(--accent-color); margin-bottom: 15px;
-            border-right: 4px solid var(--accent-color); padding-right: 10px;
-            display: flex; justify-content: space-between; align-items: center;
-        }
-        .apps-grid {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 15px;
-        }
-        .app-card {
-            background: var(--bg-secondary); border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 16px; padding: 15px 10px; text-align: center; text-decoration: none;
-            color: #fff; transition: 0.3s; backdrop-filter: blur(8px); position: relative;
-        }
-        .app-card:hover { transform: translateY(-5px); border-color: var(--accent-color); box-shadow: 0 5px 15px var(--accent-glow); }
-        .app-card img { width: 42px; height: 42px; object-fit: contain; margin-bottom: 8px; border-radius: 10px; }
-        .app-card span { display: block; font-size: 13px; font-weight: 600; }
-
-        /* قسم الذكاء الاصطناعي تايقر FD2WNLX */
-        .ai-box {
-            background: var(--bg-secondary); border: 1px solid var(--accent-color);
-            border-radius: 20px; padding: 20px; margin-top: 30px; box-shadow: 0 0 20px rgba(0,0,0,0.4);
-        }
-        .chat-window {
-            height: 220px; overflow-y: auto; background: rgba(0,0,0,0.35);
-            border-radius: 12px; padding: 15px; margin: 12px 0; display: flex; flex-direction: column; gap: 10px;
-        }
-        .msg { padding: 10px 14px; border-radius: 12px; max-width: 80%; font-size: 14px; line-height: 1.5; }
-        .msg.bot { background: rgba(255,255,255,0.1); align-self: flex-start; border-right: 3px solid var(--accent-color); }
-        .msg.user { background: var(--accent-color); color: #000; align-self: flex-end; font-weight: 600; }
-        .chat-input { display: flex; gap: 10px; }
-        .chat-input input {
-            flex: 1; padding: 12px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.2);
-            background: rgba(0,0,0,0.5); color: #fff; outline: none;
-        }
-
-        /* النوافذ المنبثقة (الإعدادات، تسجيل الدخول، الحماية القانونية) */
-        .modal {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.8); justify-content: center; align-items: center; z-index: 300; padding: 15px;
-        }
-        .modal-card {
-            background: #0d1526; border: 1px solid var(--accent-color); border-radius: 20px;
-            padding: 25px; width: 100%; max-width: 480px; max-height: 85vh; overflow-y: auto;
-        }
-        .modal-card h2 { color: var(--accent-color); margin-bottom: 15px; font-size: 20px; }
-        .form-group { margin-bottom: 12px; }
-        .form-group label { display: block; font-size: 13px; margin-bottom: 5px; color: #ccc; }
-        .form-group input, .form-group select {
-            width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #333; background: #16213e; color: #fff;
-        }
-        .danger-btn { background: #e60023; color: #fff; border: none; padding: 10px; border-radius: 8px; width: 100%; cursor: pointer; font-weight: bold; margin-top: 10px; }
-        footer { text-align: center; padding: 25px; font-size: 12px; color: #888; margin-top: 40px; border-top: 1px solid rgba(255,255,255,0.08); }
-    </style>
+    <title>FDxwLNX | البوابة الذكية الآمنة</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="sky-bg">
-    <div class="stars"></div>
-    <div class="clouds"></div>
-</div>
+    <!-- خلفية النجوم والغيوم RGB المتحركة -->
+    <div class="sky-bg">
+        <div class="stars"></div>
+        <div class="rgb-clouds"></div>
+    </div>
 
-<!-- مؤشر جناح الصقر أثناء التمرير -->
-<div class="falcon-wing-indicator" id="falconWing">
+    <!-- جناح الصقر المتحرك أثناء التمرير -->
+    <div id="falconWing" class="falcon-wing" aria-hidden="true">🦅</div>
+
+    <!-- الشريط العلوي -->
+    <header class="top-bar">
+        <div class="brand">
+            <span class="brand-logo">FDxwLNX</span>
+            <span class="shield-badge" title="محمي ومشفر محلياً">🛡️ تشفير محلي</span>
+        </div>
+        <div class="nav-actions">
+            <button class="nav-btn" onclick="openModal('groupsModal')">مجموعات الويب</button>
+            <button class="nav-btn" onclick="openModal('settingsModal')">⚙️ الإعدادات</button>
+            <button id="userStatusBtn" class="auth-btn" onclick="openModal('authModal')">تسجيل الدخول</button>
+        </div>
+    </header>
+
+    <!-- المحتوى الرئيسي -->
+    <main class="container">
+        
+        <!-- قسم البحث المركزي Fd.wc -->
+        <section class="search-section">
+            <h1 class="fd-wc-title">Fd.wc</h1>
+            <div class="search-box-wrapper">
+                <select id="searchEngine" class="engine-select" aria-label="اختر محرك البحث">
+                    <option value="https://google.com">Google</option>
+                    <option value="https://brave.com">Brave (خصوصية)</option>
+                    <option value="https://bing.com">Microsoft Bing</option>
+                    <option value="https://duckduckgo.com">DuckDuckGo</option>
+                </select>
+                <input type="text" id="webSearchInput" placeholder="ابحث في الويب بسرعة وأمان..." onkeypress="if(event.key==='Enter') executeSearch()">
+                <button class="search-submit" onclick="executeSearch()">بحث</button>
+            </div>
+            <button class="pin-btn" onclick="openModal('pinAppModal')">+ تثبيت تطبيق في مساحتي</button>
+        </section>
+
+        <!-- شبكة تطبيقات التواصل الاجتماعي والبرمجيات -->
+        <section class="grid-section">
+            <h2>التطبيقات والبرمجيات السريعة</h2>
+            <div id="appsGrid" class="apps-grid"></div>
+        </section>
+
+        <!-- شبكة القنوات الإلكترونية المفتوحة -->
+        <section class="grid-section">
+            <h2>القنوات الإلكترونية المفتوحة</h2>
+            <div id="channelsGrid" class="apps-grid"></div>
+        </section>
+
+        <!-- خانة الذكاء الاصطناعي السري: تايقر FD2WNLX -->
+        <section class="ai-section">
+            <div class="ai-header">
+                <h2>🤖 المساعد الذكي: تايقر FD2WNLX</h2>
+                <span class="privacy-tag">محادثة سرية مشفرة 100%</span>
+            </div>
+            <div id="chatWindow" class="chat-window">
+                <div class="msg bot"><strong>تايقر FD2WNLX:</strong> مرحباً بك! أنا جاهز لمساعدتك في البحث السريع، البرمجة، وحماية بياناتك بدون إعلانات أو تتبع.</div>
+            </div>
+            <div class="ai-input-box">
+                <input type="text" id="aiPrompt" placeholder="اسأل تايقر FD2WNLX بكل سرية..." onkeypress="if(event.key==='Enter') askTigerAI()">
+                <button onclick="askTigerAI()">إرسال</button>
+            </div>
+        </section>
+
+        <!-- التذييل والحماية القانونية -->
+        <footer class="legal-footer">
+            <p>© 2026 منصة FDxwLNX - جميع الحقوق محفوظة. متوافق مع معايير Apple Web Apps.</p>
+            <p class="privacy-note">سياسة الخصوصية: جميع بياناتك وكلمات مرورك تُشفّر وتُحفظ محلياً على جهازك فقط ولا يتم مشاركتها مع أي طرف ثالث.</p>
+        </footer>
+    </main>
+
+    <!-- نافذة تسجيل الدخول -->
+    <div id="authModal" class="modal">
+        <div class="modal-box">
+            <h3>تسجيل الدخول الآمن (FDxwLNX)</h3>
+            <input type="email" id="loginEmail" placeholder="البريد الإلكتروني">
+            <input type="password" id="loginPass" placeholder="كلمة المرور">
+            <button class="primary-btn" onclick="localEncryptedLogin()">دخول وتشفير على جهازي</button>
+            <div class="oauth-buttons">
+                <button onclick="oauthNotice('Google')">الدخول عبر Google</button>
+                <button onclick="oauthNotice('Microsoft')">الدخول عبر Microsoft</button>
+            </div>
+            <button class="link-btn" onclick="recoverAccount()">نسيت كلمة المرور؟ استرداد عبر الإيميل</button>
+            <button class="close-btn" onclick="closeModal('authModal')">إغلاق</button>
+        </div>
+    </div>
+
+    <!-- نافذة الإعدادات والألوان والتشفير -->
+    <div id="settingsModal" class="modal">
+        <div class="modal-box">
+            <h3>⚙️ إعدادات المظهر والخصوصية</h3>
+            <label>تغيير ألوان الواجهة (RGB):</label>
+            <div class="theme-buttons">
+                <button onclick="changeTheme('blue')">الأزرق السماوي والنجوم</button>
+                <button onclick="changeTheme('red')">الأحمر الناري RGB</button>
+                <button onclick="changeTheme('falcon')">ذهبي ورمادي (شعار الصقر)</button>
+            </div>
+            <hr>
+            <label>إدارة البيانات المشفرة على جهازك:</label>
+            <button class="primary-btn" onclick="exportEncryptedBackup()">📥 حفظ ملف مشفر باسمي</button>
+            <button class="danger-btn" onclick="wipeAllData()">🗑️ حذف وإتلاف جميع البيانات نهائياً</button>
+            <button class="close-btn" onclick="closeModal('settingsModal')">إغلاق</button>
+        </div>
+    </div>
+
+    <!-- نافذة تثبيت تطبيق مخصص -->
+    <div id="pinAppModal" class="modal">
+        <div class="modal-box">
+            <h3>+ تثبيت تطبيق جديد</h3>
+            <input type="text" id="customAppName" placeholder="اسم التطبيق أو الموقع">
+            <input type="url" id="customAppUrl" placeholder="الرابط (مثال: https://example.com)">
+            <button class="primary-btn" onclick="pinCustomApp()">تثبيت الآن</button>
+            <button class="close-btn" onclick="closeModal('pinAppModal')">إلغاء</button>
+        </div>
+    </div>
+
+    <!-- نافذة مجموعات الويب السرية -->
+    <div id="groupsModal" class="modal">
+        <div class="modal-box">
+            <h3>🔒 مجموعات الويب السرية</h3>
+            <div id="groupsContent"></div>
+            <button class="close-btn" onclick="closeModal('groupsModal')">إغلاق</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
